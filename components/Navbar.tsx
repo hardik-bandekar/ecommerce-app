@@ -24,7 +24,8 @@ export default function Navbar() {
     });
 
     dispatch(clearUser());
-    router.replace("/login");
+
+    window.location.href = "/login";
   };
 
   return (
