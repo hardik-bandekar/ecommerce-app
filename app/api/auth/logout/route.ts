@@ -6,5 +6,8 @@ export async function POST() {
 
   cookieStore.delete("token");
 
-  return NextResponse.json({ success: true });
+  //   return NextResponse.json({ success: true });
+  return NextResponse.redirect(
+    new URL("/login", process.env.NEXT_PUBLIC_APP_URL),
+  );
 }
