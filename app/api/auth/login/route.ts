@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
     cookieStore.set("token", data.accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
+      // sameSite: "strict",
+      sameSite: "lax",
       path: "/",
     });
 
