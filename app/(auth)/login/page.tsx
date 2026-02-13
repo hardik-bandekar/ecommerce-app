@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,58 +51,88 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 text-gray-900">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-96">
-        <h2 className="text-2xl font-bold text-center mb-6">Welcome Back</h2>
+    <div className="relative min-h-screen flex items-center justify-center lg:justify-end overflow-hidden bg-gradient-to-br from-[#FFF9DB] via-[#FFED7D] to-[#FFEC96] px-6 sm:px-10 lg:px-40">
+      <div className="hidden lg:block absolute left-28 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#FDE047] to-[#F59E0B] z-0" />
+      <img
+        src="/rider_loginpage.png"
+        alt="Rider"
+        className="hidden lg:block absolute left-40 top-1/2 -translate-y-1/2 w-[650px] z-10 pointer-events-none select-none"
+      />
 
-        {error && (
-          <div className="bg-red-100 text-red-700 p-2 rounded mb-4 text-sm text-center">
-            {error}
-          </div>
-        )}
+      <div className="relative z-20 w-full max-w-sm bg-white/20 backdrop-blur-2xl border border-white/40 shadow-[0_25px_80px_rgba(255,215,0,0.25)] rounded-[32px] p-8 sm:p-10 lg:p-12  text-gray-800  overflow-hidden">
+        {/* Glossy Top Shine */}
+        <div className="absolute top-0 left-0 w-full h-1/2  bg-gradient-to-b from-white/40 to-transparent rounded-t-[32px] pointer-events-none" />
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Username</label>
-            <input
-              type="text"
-              placeholder="Enter your username"
-              className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
+        {/* Soft Inner Border */}
+        <div className="absolute inset-0 rounded-[32px] border border-white/30 pointer-events-none" />
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="w-full border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold mb-1 text-center  bg-gradient-to-r from-yellow-400 to-orange-500  bg-clip-text text-transparent">
+            Unlock Your Experience
+          </h2>
+          <p className="text-sm text-gray-600 mb-8 text-center">
+            Sign in and continue your journey
+          </p>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full text-white font-semibold py-2 rounded-lg transition ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-black hover:bg-gray-800"
-            }`}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+          <form onSubmit={handleLogin} className="space-y-5 sm:space-y-6">
+            <div>
+              <label className="text-base text-gray-700">Username</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                className="w-full mt-1 p-2 rounded-xl bg-white/10 border border-white/50 backdrop-blur-sm text-gray-800 placeholder-grey-300 placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+            </div>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
-          Don’t have an account?{" "}
-          <a href="/register" className="text-blue-600 font-medium">
-            Register
-          </a>
-        </p>
+            <div>
+              <label className="text-base text-gray-700">Password</label>
+
+              <div className="relative mt-1">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="w-full p-2 pr-10 rounded-xl 
+            bg-white/10 
+            border border-white/50 
+            backdrop-blur-sm 
+            text-gray-800 
+            placeholder:text-gray-300 
+            placeholder:text-sm
+            focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                />
+
+                {/* Ant Design Eye Icon */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-600 hover:text-yellow-500 transition"
+                >
+                  {showPassword ? (
+                    <EyeInvisibleOutlined className="text-lg" />
+                  ) : (
+                    <EyeOutlined className="text-lg" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 ${
+                loading
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-gradient-to-r from-[#FACC15] to-[#F59E0B] text-white hover:scale-105 shadow-lg"
+              }`}
+            >
+              {loading ? "Logging in..." : "Sign In"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

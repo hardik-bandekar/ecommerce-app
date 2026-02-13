@@ -18,25 +18,25 @@ export default function Navbar() {
 
   const user = useSelector((state: RootState) => state.auth.user);
 
-  const handleLogout = async () => {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-    });
+  // const handleLogout = async () => {
+  //   await fetch("/api/auth/logout", {
+  //     method: "POST",
+  //   });
 
-    dispatch(clearUser());
+  //   dispatch(clearUser());
 
-    setTimeout(() => {
-      window.location.href = "/login";
-    }, 100);
-  };
-  // const handleLogout = () => {
-  //   window.location.href = "/api/auth/logout";
+  //   setTimeout(() => {
+  //     window.location.href = "/login";
+  //   }, 100);
   // };
+  const handleLogout = () => {
+    window.location.href = "/api/auth/logout";
+  };
 
   return (
     <nav className="flex justify-between items-center px-8 py-4 border-b">
       <Link href="/products" className="font-bold text-lg">
-        🛍 Ecommerce
+        Ecommerce
       </Link>
 
       <div className="flex gap-6 items-center">
